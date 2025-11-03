@@ -1,0 +1,184 @@
+// palindrome
+// var isPalindrome = function (x) {
+//     x = x.toString()
+//     let i = 0;
+//     let j = x.length - 1
+//     console.log(x, x[i], x[j])
+//     while (i < j) {
+//         if (x[i] === x[j]) {
+//             i++;
+//             j--;
+//         } else {
+//             return false
+//         }
+//     }
+//     return true
+// };
+
+// longest common prefix string amongst an array of strings.
+// var longestCommonPrefix = function (strs) {
+//     let prefix = strs[0];
+//     for (let i = 1; i < strs.length; i++) {
+//         while (strs[i].indexOf(prefix) !== 0) {
+//             prefix = prefix.slice(0, prefix.length - 1)
+//             if (prefix === "") return ""
+//         }
+//     }
+//     return prefix
+// };
+// console.log("prefix: ", longestCommonPrefix(["flower", "flow", "flight"]))
+
+// Two Sum
+// var twoSum = function (nums, target) {
+//     let sortedNums = [...nums]
+//     sortedNums.sort((a, b) => a - b)
+//     console.log(sortedNums)
+//     let i = 0
+//     let j = sortedNums.length - 1
+//     while (i < j) {
+//         if (sortedNums[i] + sortedNums[j] < target) {
+//             i++;
+//         } else if (sortedNums[i] + sortedNums[j] > target) {
+//             j--;
+//         } else {
+//             if(nums.indexOf(sortedNums[i]) === nums.indexOf(sortedNums[j])){
+//                 let k = nums.indexOf(sortedNums[i])
+//                 nums[k] = -1
+//                 return [k, nums.indexOf(sortedNums[j])]
+//             }else{
+//                 return [nums.indexOf(sortedNums[i]), nums.indexOf(sortedNums[j])]
+//             }
+//         }
+//     }
+// };
+// console.log("prefix: 1", twoSum([2, 7, 11, 15], 9))
+// console.log("prefix: 2", twoSum([3, 2, 4], 6))
+// console.log("prefix: 3", twoSum([3, 3], 6))
+
+// Best time to buy and sell stock
+// var maxProfit = function(prices) {
+//     let min = Infinity
+//     let max = 0;
+//     for(let price of prices){
+//         min = Math.min(price, min)
+//         max = Math.max(price-min, max)
+//     }
+//     return max
+// };
+
+// console.log("1: ", maxProfit([7,1,5,3,6,4]))
+// console.log("2: ", maxProfit([7,6,4,3,1]))
+
+// Valid Anagram
+var isAnagram = function (s, t) {
+    if (s?.length !== t?.length) return;
+    let obj = {}
+    for (let i of s) {
+        obj[i] = (obj[i] || 0) + 1
+    }
+    for (let i of t) {
+        if (!obj[i]) return false
+        obj[i]--
+    }
+    return true
+};
+// console.log("1: ", isAnagram("anagram", "nagaram"))
+// console.log("2: ", isAnagram("rat", "car"))
+
+// Group anagram
+
+// var groupAnagrams = function (strs) {
+//     let obj = {}
+//     let output = []
+//     let k = 0
+//     for (let i = 0; i < strs.length-1; i++) {
+//         output[k] = strs[i]
+//         for(let j= i+1; j < strs.length; j++){
+//             if(isAnagram(output[k][i], strs[j])){
+//                 obj[output[k][i]] = (obj[output[k][i]] || 0) + 1
+//             }
+//         }
+//     }
+//     console.log(obj)
+//     return output
+// };
+// console.log("1: ", groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
+// console.log("2: ", groupAnagrams([""]))
+// console.log("3: ", groupAnagrams(["a"]))
+
+// LinkedList
+class Node {
+    constructor(value){
+        this.value = value;
+        this.next = null;
+    }
+}
+
+class LinkedList{
+    constructor(){
+        this.head = null
+    }
+    append(value){
+        const newNode = new Node(value)
+        if(!this.head){
+            this.head = newNode
+            return
+        }
+        let current = this.head
+        while(current.next){
+            current = current.next
+        }
+        current.next = newNode
+    }
+    prepend(value){
+        const newNode = new Node(value)
+        newNode.next = this.head
+        this.head = newNode
+    }
+    delete(value){
+        if(!this.head) return
+        if(this.head.value === value){
+            this.head = this.head.next
+            return
+        }
+        let current = this.head
+        while(current.next && current.next.value !== value){
+            current = current.next
+        }
+
+        if(current.next){
+            current.next = current.next.next
+        }
+    }
+    reverse(){
+        let prev = null
+        let current = this.head
+        while(current){
+            let nextNode = current.next
+            current.next = prev;
+            prev = current
+            current = nextNode
+        }
+        this.head = prev
+    }
+    print(){
+        let current = this.head
+        const values = []
+        while(current){
+            values.push(current.value)
+            current = current.next
+        }
+        console.log(values.join(" -> "))
+    }
+}
+
+const list = new LinkedList();
+
+list.append(10);
+list.append(20);
+list.append(30);
+list.prepend(5)
+list.reverse();
+// list.delete(30)
+
+list.print();
