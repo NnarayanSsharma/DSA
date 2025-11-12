@@ -183,3 +183,141 @@ var hasCycle = function(head) {
     }
     return false
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function(head) {
+    let current = head
+    while(current && current.next){
+        if(current.val === current.next.val){
+            current.next = current.next.next
+        }else{
+            current = current.next
+        }
+    }
+    return head
+};
+// Input: head = [1,1,2,3,3]
+// Output: [1,2,3]
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var deleteDuplicates = function(head) {
+    let dummy = new ListNode(0)
+    dummy.next = head
+    let prev = dummy
+    let current = head
+    while(current){
+        let isDuplicate = false
+        while(current.next && current.val === current.next.val){
+            isDuplicate = true
+            current = current.next
+        }
+
+        if(isDuplicate ){
+            prev.next = current.next
+        }else{
+            prev = prev.next
+        }
+        current = current.next
+    }
+    return dummy.next
+};
+
+// Input: head = [1,2,3,3,4,4,5]
+// Output: [1,2,5]
+
+// Input: head = [1,1,1,2,3]
+// Output: [2,3]
+
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function(head) {
+    let slow = head
+    let fast = head
+    while (fast && fast.next){
+        slow = slow.next
+        fast = fast.next.next
+    }
+
+    // reverse from half
+    let prev = null
+    let current = slow
+    while(current){
+        let nextNode = current.next
+        current.next = prev
+        prev = current
+        current = nextNode
+    }
+
+    let left = head
+    let right = prev
+
+    while(right){
+        if(left.val !== right.val){
+            return false
+        }
+        left = left.next
+        right = right.next
+    }
+    return true
+};
+// Input: head = [1,2,2,1]
+// Output: true
+// Input: head = [1,1,2,1]
+// Output: false
+
+
+// Two pointer intersection
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+    if(!headA || !headB) return "No intersection"
+    let currA = headA
+    let currB = headB
+    while(currA !== currB){
+        currA = currA===null?headB: currA.next
+        currB = currB===null?headA: currB.next
+    }
+    return currA
+};
