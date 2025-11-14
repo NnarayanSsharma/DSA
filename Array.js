@@ -148,3 +148,47 @@ var findValidPair = function(s) {
 // Input: s = "22"
 // Output: ""
 
+// 697. Degree of an Array
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findShortestSubArray = function(nums) {
+    let freq = {}
+    let first = {}
+    let last = {}
+    for(let i = 0; i < nums.length; i++){
+        freq[nums[i]] = (freq[nums[i]] || 0) + 1
+        if(first[nums[i]] === undefined){
+            first[nums[i]] = i
+        }
+        last[nums[i]] = i
+    }
+    let degree = Math.max(...Object.values(freq))
+    let min = Infinity
+    for (let num of nums){
+        if(freq[num] === degree){
+            min = Math.min(min, last[num] - first[num] + 1)
+        }
+    }
+    return min
+};
+
+
+// Example 1:
+
+// Input: nums = [1,2,2,3,1]
+// Output: 2
+// Explanation: 
+// The input array has a degree of 2 because both elements 1 and 2 appear twice.
+// Of the subarrays that have the same degree:
+// [1, 2, 2, 3, 1], [1, 2, 2, 3], [2, 2, 3, 1], [1, 2, 2], [2, 2, 3], [2, 2]
+// The shortest length is 2. So return 2.
+// Example 2:
+
+// Input: nums = [1,2,2,3,1,4,2]
+// Output: 6
+// Explanation: 
+// The degree is 3 because the element 2 is repeated 3 times.
+// So [2,2,3,1,4,2] is the shortest subarray, therefore returning 6.
+
