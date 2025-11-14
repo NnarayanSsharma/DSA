@@ -192,3 +192,34 @@ var findShortestSubArray = function(nums) {
 // The degree is 3 because the element 2 is repeated 3 times.
 // So [2,2,3,1,4,2] is the shortest subarray, therefore returning 6.
 
+
+// 152. Maximum Product Subarray
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxProduct = function(nums) {
+    let maxProd = nums[0]
+    let minProd = nums[0]
+    let result = nums[0]
+    for(let i = 1; i < nums.length; i++){
+        if(nums[i] < 0){
+            [maxProd, minProd] = [minProd, maxProd]
+        }
+        maxProd = Math.max(nums[i], maxProd*nums[i])
+        minProd = Math.max(nums[i], minProd*nums[i])
+        result = Math.max(maxProd, result)
+    }
+    return result
+};
+
+// Example 1:
+
+// Input: nums = [2,3,-2,4]
+// Output: 6
+// Explanation: [2,3] has the largest product 6.
+// Example 2:
+
+// Input: nums = [-2,0,-1]
+// Output: 0
+// Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
