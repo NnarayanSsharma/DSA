@@ -207,7 +207,7 @@ var maxProduct = function(nums) {
             [maxProd, minProd] = [minProd, maxProd]
         }
         maxProd = Math.max(nums[i], maxProd*nums[i])
-        minProd = Math.max(nums[i], minProd*nums[i])
+        minProd = Math.min(nums[i], minProd*nums[i])
         result = Math.max(maxProd, result)
     }
     return result
